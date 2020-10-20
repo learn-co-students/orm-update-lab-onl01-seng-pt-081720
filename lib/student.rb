@@ -5,7 +5,9 @@ class Student
 
   # Remember, you can access your database connection anywhere in this class
   #  with DB[:conn]
-  attr_accessor :name, :grade, :id
+
+  attr_accessor :name, :grade
+  attr_reader :id
 
   def initialize( id = nil, name, grade)
     @id = id
@@ -41,7 +43,7 @@ class Student
 
       DB[:conn].execute(sql, self.name, self.grade)
 
-      @id = DB[:conn].execute("SELECT last_insert_rowid() FROM students")[0][0]
+      @id = DB[:conn].last_insert_row_id
     end
   end
 
